@@ -173,6 +173,7 @@ const Timer = () => {
           type="number"
           defaultValue="0"
           min="0"
+          readOnly={startCount}
           onChange={(e) => {
             onWarningChange({ hours: e.target.value });
           }}
@@ -182,6 +183,7 @@ const Timer = () => {
           type="number"
           defaultValue="0"
           min="0"
+          readOnly={startCount}
           onChange={(e) => {
             onWarningChange({ minutes: e.target.value });
           }}
@@ -191,6 +193,7 @@ const Timer = () => {
           type="number"
           defaultValue="0"
           min="0"
+          readOnly={startCount}
           onChange={(e) => {
             onWarningChange({ seconds: e.target.value });
           }}
