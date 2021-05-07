@@ -91,6 +91,11 @@ const Timer = () => {
 
   return (
     <>
+      <div className="clock">
+        <h5>Clock</h5>
+        <input value={new Date().toTimeString()} readOnly />
+      </div>
+
       <div
         className={`timer ${finished ? "blink" : ""} ${
           warn && startCount ? "warn" : ""

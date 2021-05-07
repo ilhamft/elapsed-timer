@@ -29,4 +29,21 @@ button {
 
 h5 {
   text-align: center;
+  margin: 1rem 0;
+}
+
+.clock {
+  width: 100%;
+  float: left;
+}
+.clock h5 {
+  text-align: left;
+}
+.clock input {
+  width: 3.5rem;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
 }
