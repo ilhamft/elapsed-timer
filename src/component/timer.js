@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 
 const Timer = () => {
+  const [now, setNow] = useState(new Date());
+
   const [tempDuration, setTempDuration] = useState(0);
   const [duration, setDuration] = useState(11000);
   const [startTime, setStartTime] = useState(
@@ -43,6 +45,12 @@ const Timer = () => {
       }, 5000);
     }
   };
+
+  useEffect(() => {
+    setInterval(() => {
+      setNow(new Date());
+    }, 1000);
+  }, []);
 
   useEffect(() => {
     calculateTime();
@@ -93,7 +101,7 @@ const Timer = () => {
     <>
       <div className="clock">
         <h5>Clock</h5>
-        <input value={new Date().toTimeString()} readOnly />
+        <input value={now.toTimeString()} readOnly />
       </div>
 
       <div
