@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 
 const Timer = () => {
-  const [now, setNow] = useState(new Date());
+  const [now, setNow] = useState("");
 
   const [tempDuration, setTempDuration] = useState(0);
   const [duration, setDuration] = useState(11000);
@@ -48,7 +48,16 @@ const Timer = () => {
 
   useEffect(() => {
     setInterval(() => {
-      setNow(new Date());
+      const n = new Date();
+      setNow(
+        `${n.getHours().toLocaleString("en-US", {
+          minimumIntegerDigits: 2,
+        })}:${n.getMinutes().toLocaleString("en-US", {
+          minimumIntegerDigits: 2,
+        })}:${n.getSeconds().toLocaleString("en-US", {
+          minimumIntegerDigits: 2,
+        })}`
+      );
     }, 1000);
   }, []);
 
@@ -101,7 +110,7 @@ const Timer = () => {
     <>
       <div className="clock">
         <h5>Clock</h5>
-        <input value={now.toTimeString()} readOnly />
+        <input value={now} readOnly />
       </div>
 
       <div
