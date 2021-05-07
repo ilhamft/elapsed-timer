@@ -15,6 +15,8 @@ const Timer = () => {
   const [startCount, setStartCount] = useState(false);
   const [finished, setFinished] = useState(false);
   const [clearInput, setClearInput] = useState(false);
+  const [warningTimer, setWarningTimer] = useState(0);
+  const [warn, setWarn] = useState(false);
 
   const timeout = useRef(null);
 
@@ -29,6 +31,9 @@ const Timer = () => {
         minutes: Math.floor((difference / 1000 / 60) % 60),
         seconds: Math.floor((difference / 1000) % 60),
       };
+
+      if (difference < warningTimer + 1000) setWarn(true);
+      else setWarn(false);
 
       setTimer(timeLeft);
     } else {
@@ -75,12 +80,24 @@ const Timer = () => {
     setStartTime(new Date(new Date().getTime() + newDuration.full));
   };
 
+  const onWarningChange = (value) => {
+    let newDuration = 0;
+    if (value.hours) newDuration += parseInt(value.hours) * 1000 * 60 * 60;
+    if (value.minutes) newDuration += parseInt(value.minutes) * 1000 * 60;
+    if (value.seconds) newDuration += parseInt(value.seconds) * 1000;
+
+    setWarningTimer(newDuration);
+  };
+
   return (
     <>
-      <div>
+      <div
+        className={`timer ${finished ? "blink" : ""} ${
+          warn && startCount ? "warn" : ""
+        }`}
+      >
         <h5>Elapsed Timer</h5>
         <input
-          className={finished ? "blink" : ""}
           type="number"
           min="0"
           {...(clearInput ? { value: "" } : {})}
@@ -94,7 +111,6 @@ const Timer = () => {
         ></input>
         :
         <input
-          className={finished ? "blink" : ""}
           type="number"
           min="0"
           {...(clearInput ? { value: "" } : {})}
@@ -108,7 +124,6 @@ const Timer = () => {
         ></input>
         :
         <input
-          className={finished ? "blink" : ""}
           type="number"
           min="0"
           {...(clearInput ? { value: "" } : {})}
@@ -121,35 +136,66 @@ const Timer = () => {
           }}
         ></input>
       </div>
-      <button
-        onClick={() => {
-          setStartTime(new Date(new Date().getTime() + timer.full));
-          if (startCount) {
-            setStartCount(!startCount);
-            if (timeout.current) clearTimeout(timeout.current);
-          } else {
-            setClearInput(true);
-            if (tempDuration) {
-              setDuration(tempDuration);
-              setTempDuration(0);
+      <div className="buttons">
+        <button
+          onClick={() => {
+            setStartTime(new Date(new Date().getTime() + timer.full));
+            if (startCount) {
+              setStartCount(!startCount);
+              if (timeout.current) clearTimeout(timeout.current);
+            } else {
+              setClearInput(true);
+              if (tempDuration) {
+                setDuration(tempDuration);
+                setTempDuration(0);
+              }
+              setStartCount(!startCount);
             }
-            setStartCount(!startCount);
-          }
-        }}
-      >
-        Start/Stop
-      </button>
-      <button
-        onClick={() => {
-          setClearInput(true);
-          setStartCount(false);
-          if (timeout.current) clearTimeout(timeout.current);
-          setStartTime(new Date(new Date().getTime() + duration));
-        }}
-      >
-        Reset
-      </button>
-      <button>Setting</button>
+          }}
+        >
+          Start/Stop
+        </button>
+        <button
+          onClick={() => {
+            setClearInput(true);
+            setStartCount(false);
+            if (timeout.current) clearTimeout(timeout.current);
+            setStartTime(new Date(new Date().getTime() + duration));
+          }}
+        >
+          Reset
+        </button>
+        <button>Setting</button>
+      </div>
+      <div className="warning">
+        <h5>Warning Time</h5>
+        <input
+          type="number"
+          defaultValue="0"
+          min="0"
+          onChange={(e) => {
+            onWarningChange({ hours: e.target.value });
+          }}
+        ></input>
+        :
+        <input
+          type="number"
+          defaultValue="0"
+          min="0"
+          onChange={(e) => {
+            onWarningChange({ minutes: e.target.value });
+          }}
+        ></input>
+        :
+        <input
+          type="number"
+          defaultValue="0"
+          min="0"
+          onChange={(e) => {
+            onWarningChange({ seconds: e.target.value });
+          }}
+        ></input>
+      </div>
     </>
   );
 };

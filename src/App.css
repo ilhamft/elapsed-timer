@@ -1,5 +1,9 @@
-.blink {
+.blink input {
   animation: blinker 1s linear infinite;
+}
+
+.warn input {
+  background-color: yellow;
 }
 
 @keyframes blinker {
