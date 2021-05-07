@@ -1,9 +1,12 @@
 import "./App.css";
+import Timer from "./component/timer";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">React</header>
+      <main className="App-main">
+        <Timer />
+      </main>
     </div>
   );
 }
