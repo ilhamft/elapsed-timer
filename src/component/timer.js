@@ -77,47 +77,50 @@ const Timer = () => {
 
   return (
     <>
-      <input
-        className={finished ? "blink" : ""}
-        type="number"
-        min="0"
-        {...(clearInput ? { value: "" } : {})}
-        placeholder={`${timer.hours.toLocaleString("en-US", {
-          minimumIntegerDigits: 2,
-        })}`}
-        readOnly={startCount}
-        onChange={(e) => {
-          if (!startCount) onInputChange({ hours: e.target.value });
-        }}
-      ></input>
-      :
-      <input
-        className={finished ? "blink" : ""}
-        type="number"
-        min="0"
-        {...(clearInput ? { value: "" } : {})}
-        placeholder={`${timer.minutes.toLocaleString("en-US", {
-          minimumIntegerDigits: 2,
-        })}`}
-        readOnly={startCount}
-        onChange={(e) => {
-          if (!startCount) onInputChange({ minutes: e.target.value });
-        }}
-      ></input>
-      :
-      <input
-        className={finished ? "blink" : ""}
-        type="number"
-        min="0"
-        {...(clearInput ? { value: "" } : {})}
-        placeholder={`${timer.seconds.toLocaleString("en-US", {
-          minimumIntegerDigits: 2,
-        })}`}
-        readOnly={startCount}
-        onChange={(e) => {
-          if (!startCount) onInputChange({ seconds: e.target.value });
-        }}
-      ></input>
+      <div>
+        <h5>Elapsed Timer</h5>
+        <input
+          className={finished ? "blink" : ""}
+          type="number"
+          min="0"
+          {...(clearInput ? { value: "" } : {})}
+          placeholder={`${timer.hours.toLocaleString("en-US", {
+            minimumIntegerDigits: 2,
+          })}`}
+          readOnly={startCount}
+          onChange={(e) => {
+            if (!startCount) onInputChange({ hours: e.target.value });
+          }}
+        ></input>
+        :
+        <input
+          className={finished ? "blink" : ""}
+          type="number"
+          min="0"
+          {...(clearInput ? { value: "" } : {})}
+          placeholder={`${timer.minutes.toLocaleString("en-US", {
+            minimumIntegerDigits: 2,
+          })}`}
+          readOnly={startCount}
+          onChange={(e) => {
+            if (!startCount) onInputChange({ minutes: e.target.value });
+          }}
+        ></input>
+        :
+        <input
+          className={finished ? "blink" : ""}
+          type="number"
+          min="0"
+          {...(clearInput ? { value: "" } : {})}
+          placeholder={`${timer.seconds.toLocaleString("en-US", {
+            minimumIntegerDigits: 2,
+          })}`}
+          readOnly={startCount}
+          onChange={(e) => {
+            if (!startCount) onInputChange({ seconds: e.target.value });
+          }}
+        ></input>
+      </div>
       <button
         onClick={() => {
           setStartTime(new Date(new Date().getTime() + timer.full));
