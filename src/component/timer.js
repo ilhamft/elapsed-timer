@@ -19,6 +19,7 @@ const Timer = () => {
   const [clearInput, setClearInput] = useState(false);
   const [warningTimer, setWarningTimer] = useState(0);
   const [warn, setWarn] = useState(false);
+  const [displaySetting, setDisplaySetting] = useState(false);
 
   const timeout = useRef(null);
 
@@ -187,9 +188,15 @@ const Timer = () => {
         >
           Reset
         </button>
-        <button>Setting</button>
+        <button
+          onClick={() => {
+            setDisplaySetting(!displaySetting);
+          }}
+        >
+          Setting
+        </button>
       </div>
-      <div className="warning">
+      <div className="warning" hidden={!displaySetting}>
         <h5>Warning Time</h5>
         <input
           type="number"
